@@ -1,0 +1,1336 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Competitor Landscape — Figma Weave</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --yellow-100: #F5FF7A;
+      --yellow-40:  #F8FFB2;
+      --yellow-64:  #F3FF9E;
+      --yellow-16:  #FCFFE8;
+      --yellow-sec: #E8EDB4;
+      --black-100:  #0A0A0A;
+      --black-92:   #141414;
+      --black-88:   #1E1E1E;
+      --black-64:   #5C5C5C;
+      --black-40:   #999999;
+      --black-16:   #D6D6D6;
+      --black-8:    #EBEBEB;
+      --white:      #FFFFFF;
+      --font-sans:  'Inter', system-ui, sans-serif;
+      --font-mono:  'JetBrains Mono', monospace;
+      --success:    #2ECC71;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: var(--font-sans);
+      background: var(--white);
+      color: var(--black-100);
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+    }
+
+    /* ─── NAV ─────────────────────────────────────────── */
+    nav {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      height: 60px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 80px;
+      background: rgba(255,255,255,0.92);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--black-8);
+    }
+
+    .nav-logo {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      text-decoration: none;
+      color: var(--black-100);
+    }
+
+    .nav-mark {
+      width: 26px;
+      height: 26px;
+      background: var(--black-100);
+      border-radius: 4px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+
+    .nav-wordmark {
+      font-size: 15px;
+      font-weight: 500;
+      letter-spacing: -0.01em;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 32px;
+      list-style: none;
+    }
+
+    .nav-links a {
+      font-size: 12px;
+      font-weight: 400;
+      color: var(--black-64);
+      text-decoration: none;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      transition: color 150ms ease;
+    }
+
+    .nav-links a:hover { color: var(--black-100); }
+
+    .btn-pill {
+      display: inline-flex;
+      align-items: center;
+      padding: 9px 20px;
+      background: var(--yellow-100);
+      color: var(--black-100);
+      font-family: var(--font-sans);
+      font-size: 13px;
+      font-weight: 500;
+      border: none;
+      border-radius: 100px;
+      text-decoration: none;
+      cursor: pointer;
+      transition: background 150ms ease;
+    }
+
+    .btn-pill:hover { background: #ECFF50; }
+
+    /* ─── HERO ────────────────────────────────────────── */
+    .hero {
+      max-width: 1280px;
+      margin: 0 auto;
+      padding: 96px 80px 72px;
+    }
+
+    .hero-eyebrow {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      margin-bottom: 28px;
+    }
+
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      padding: 4px 10px;
+      background: var(--yellow-100);
+      color: var(--black-100);
+      border-radius: 100px;
+      font-size: 11px;
+      font-weight: 500;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      white-space: nowrap;
+    }
+
+    .badge.outline {
+      background: transparent;
+      border: 1.5px solid var(--black-16);
+      color: var(--black-64);
+    }
+
+    .badge.dark {
+      background: var(--black-100);
+      color: var(--white);
+    }
+
+    .hero-title {
+      font-size: 80px;
+      font-weight: 400;
+      line-height: 0.95;
+      letter-spacing: -0.035em;
+      color: var(--black-100);
+      margin-bottom: 28px;
+      max-width: 780px;
+    }
+
+    .hero-sub {
+      font-size: 18px;
+      font-weight: 400;
+      color: var(--black-64);
+      line-height: 1.6;
+      max-width: 540px;
+      margin-bottom: 40px;
+    }
+
+    .hero-stats {
+      display: flex;
+      gap: 40px;
+      align-items: center;
+    }
+
+    .hero-stat {
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+    }
+
+    .stat-value {
+      font-size: 28px;
+      font-weight: 400;
+      letter-spacing: -0.03em;
+      color: var(--black-100);
+    }
+
+    .stat-label {
+      font-size: 12px;
+      color: var(--black-40);
+      font-family: var(--font-mono);
+    }
+
+    .stat-sep {
+      width: 1px;
+      height: 36px;
+      background: var(--black-8);
+    }
+
+    /* ─── FILTERS ─────────────────────────────────────── */
+    .filter-bar {
+      position: sticky;
+      top: 60px;
+      z-index: 90;
+      background: rgba(255,255,255,0.95);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--black-8);
+      padding: 0 80px;
+    }
+
+    .filter-inner {
+      max-width: 1280px;
+      margin: 0 auto;
+      display: flex;
+      gap: 4px;
+      padding: 10px 0;
+      overflow-x: auto;
+      scrollbar-width: none;
+    }
+
+    .filter-inner::-webkit-scrollbar { display: none; }
+
+    .filter-btn {
+      padding: 6px 16px;
+      background: transparent;
+      border: 1.5px solid transparent;
+      border-radius: 100px;
+      font-family: var(--font-sans);
+      font-size: 12px;
+      font-weight: 500;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      color: var(--black-64);
+      cursor: pointer;
+      white-space: nowrap;
+      transition: all 150ms ease;
+    }
+
+    .filter-btn:hover {
+      background: var(--black-8);
+      color: var(--black-100);
+    }
+
+    .filter-btn.active {
+      background: var(--black-100);
+      color: var(--white);
+      border-color: var(--black-100);
+    }
+
+    /* ─── CARDS GRID ──────────────────────────────────── */
+    .grid-section {
+      max-width: 1280px;
+      margin: 0 auto;
+      padding: 56px 80px 80px;
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 16px;
+    }
+
+    .card {
+      background: var(--white);
+      border: 1px solid var(--black-8);
+      border-radius: 12px;
+      padding: 20px;
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+      transition: border-color 200ms ease, transform 200ms ease;
+      animation: fadeIn 300ms ease forwards;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(8px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    .card:hover {
+      border-color: var(--black-16);
+    }
+
+    .card.hidden {
+      display: none;
+    }
+
+    .card-top {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 12px;
+    }
+
+    .card-icon {
+      width: 40px;
+      height: 40px;
+      border-radius: 8px;
+      background: var(--black-8);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 17px;
+      line-height: 1;
+      flex-shrink: 0;
+    }
+
+    .card-badges {
+      display: flex;
+      gap: 5px;
+      flex-wrap: wrap;
+      justify-content: flex-end;
+    }
+
+    .card-name {
+      font-size: 19px;
+      font-weight: 500;
+      letter-spacing: -0.02em;
+      color: var(--black-100);
+    }
+
+    .card-desc {
+      font-size: 13px;
+      line-height: 1.55;
+      color: var(--black-64);
+    }
+
+    .divider {
+      height: 1px;
+      background: var(--black-8);
+    }
+
+    .list-label {
+      font-size: 10px;
+      font-weight: 500;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: var(--black-40);
+      margin-bottom: 8px;
+    }
+
+    .item-list {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+
+    .item {
+      display: flex;
+      align-items: flex-start;
+      gap: 8px;
+      font-size: 12.5px;
+      color: var(--black-100);
+      line-height: 1.45;
+    }
+
+    .item-dot {
+      width: 16px;
+      height: 16px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 10px;
+      flex-shrink: 0;
+      margin-top: 0.5px;
+    }
+
+    .item-dot.up {
+      background: rgba(46,204,113,0.12);
+      color: #27ae60;
+    }
+
+    .item-dot.down {
+      background: var(--black-8);
+      color: var(--black-40);
+    }
+
+    .card-footer {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-top: auto;
+      padding-top: 2px;
+    }
+
+    .pricing {
+      font-family: var(--font-mono);
+      font-size: 11px;
+      color: var(--black-64);
+    }
+
+    .audience {
+      font-size: 10px;
+      font-weight: 500;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      color: var(--black-40);
+    }
+
+    /* ─── POSITIONING MAP ─────────────────────────────── */
+    .map-section {
+      background: var(--black-100);
+      padding: 96px 80px;
+    }
+
+    .map-inner {
+      max-width: 1280px;
+      margin: 0 auto;
+    }
+
+    .map-eyebrow {
+      font-size: 11px;
+      font-weight: 500;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: rgba(255,255,255,0.35);
+      margin-bottom: 16px;
+    }
+
+    .map-title {
+      font-size: 52px;
+      font-weight: 400;
+      letter-spacing: -0.025em;
+      color: var(--white);
+      margin-bottom: 56px;
+      line-height: 1.05;
+    }
+
+    .map-title em {
+      font-style: normal;
+      color: var(--yellow-100);
+    }
+
+    .map-canvas {
+      position: relative;
+      width: 100%;
+      height: 480px;
+      border: 1px solid rgba(255,255,255,0.08);
+      border-radius: 12px;
+      overflow: hidden;
+      background: var(--black-92);
+    }
+
+    .map-axis {
+      position: absolute;
+      background: rgba(255,255,255,0.06);
+    }
+
+    .map-axis.h {
+      left: 0; right: 0;
+      top: 50%;
+      height: 1px;
+    }
+
+    .map-axis.v {
+      top: 0; bottom: 0;
+      left: 50%;
+      width: 1px;
+    }
+
+    .axis-label {
+      position: absolute;
+      font-size: 10px;
+      font-family: var(--font-mono);
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: rgba(255,255,255,0.25);
+    }
+
+    .axis-label.left   { left: 16px;  top: 50%; transform: translateY(-50%) rotate(-90deg) translateX(-50%); }
+    .axis-label.right  { right: 16px; top: 50%; transform: translateY(-50%) rotate(90deg) translateX(50%); }
+    .axis-label.top    { top: 12px;   left: 50%; transform: translateX(-50%); }
+    .axis-label.bottom { bottom: 12px; left: 50%; transform: translateX(-50%); }
+
+    .map-dot {
+      position: absolute;
+      transform: translate(-50%, -50%);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 5px;
+      cursor: default;
+    }
+
+    .dot-circle {
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      background: rgba(255,255,255,0.3);
+      border: 1px solid rgba(255,255,255,0.5);
+      transition: transform 200ms ease;
+    }
+
+    .map-dot:hover .dot-circle {
+      transform: scale(1.5);
+    }
+
+    .dot-circle.weave {
+      background: var(--yellow-100);
+      border-color: var(--yellow-100);
+      width: 14px;
+      height: 14px;
+      box-shadow: 0 0 0 4px rgba(245,255,122,0.2);
+    }
+
+    .dot-label {
+      font-size: 10px;
+      font-family: var(--font-mono);
+      color: rgba(255,255,255,0.5);
+      white-space: nowrap;
+    }
+
+    .dot-label.weave {
+      color: var(--yellow-100);
+      font-weight: 500;
+    }
+
+    /* ─── COMPARISON TABLE ────────────────────────────── */
+    .table-section {
+      background: var(--yellow-40);
+      padding: 96px 80px;
+    }
+
+    .table-inner {
+      max-width: 1280px;
+      margin: 0 auto;
+    }
+
+    .section-eyebrow {
+      font-size: 11px;
+      font-weight: 500;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--black-64);
+      margin-bottom: 16px;
+    }
+
+    .section-title {
+      font-size: 52px;
+      font-weight: 400;
+      letter-spacing: -0.025em;
+      color: var(--black-100);
+      margin-bottom: 48px;
+      line-height: 1.05;
+    }
+
+    .table-wrap {
+      border-radius: 12px;
+      border: 1px solid var(--yellow-sec);
+      overflow-x: auto;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      background: var(--white);
+      font-size: 13px;
+    }
+
+    thead th {
+      padding: 14px 18px;
+      text-align: left;
+      font-size: 11px;
+      font-weight: 500;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      color: var(--black-64);
+      border-bottom: 1px solid var(--black-8);
+      white-space: nowrap;
+      background: var(--white);
+    }
+
+    thead th.hl {
+      background: var(--yellow-100);
+      color: var(--black-100);
+    }
+
+    tbody tr {
+      border-bottom: 1px solid var(--black-8);
+    }
+
+    tbody tr:last-child { border-bottom: none; }
+
+    tbody tr:hover td { background: var(--black-8); }
+    tbody tr:hover td.hl { background: var(--yellow-64); }
+
+    td {
+      padding: 13px 18px;
+      color: var(--black-100);
+      background: var(--white);
+    }
+
+    td.feat {
+      font-weight: 500;
+      font-size: 13px;
+      white-space: nowrap;
+    }
+
+    td.hl { background: rgba(245,255,122,0.12); }
+
+    .yes  { color: var(--success); font-size: 14px; }
+    .no   { color: var(--black-16); font-size: 14px; }
+    .part { color: #FF8C00; font-size: 11px; font-weight: 500; letter-spacing: 0.04em; }
+
+    /* ─── FOOTER ──────────────────────────────────────── */
+    footer {
+      background: var(--black-100);
+      padding: 60px 80px;
+    }
+
+    .footer-inner {
+      max-width: 1280px;
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .footer-left {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .footer-brand {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .footer-mark {
+      width: 26px;
+      height: 26px;
+      background: var(--yellow-100);
+      border-radius: 4px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+
+    .footer-wordmark {
+      font-size: 15px;
+      font-weight: 500;
+      color: var(--white);
+    }
+
+    .footer-tagline {
+      font-family: var(--font-mono);
+      font-size: 12px;
+      color: rgba(255,255,255,0.3);
+      padding-left: 36px;
+    }
+
+    .footer-eq {
+      font-family: var(--font-mono);
+      font-size: 12px;
+      color: rgba(255,255,255,0.3);
+    }
+
+    .footer-eq em {
+      font-style: normal;
+      color: var(--yellow-100);
+    }
+
+    /* ─── RESPONSIVE ──────────────────────────────────── */
+    @media (max-width: 1024px) {
+      nav           { padding: 0 48px; }
+      .hero         { padding: 64px 48px 56px; }
+      .hero-title   { font-size: 60px; }
+      .filter-bar   { padding: 0 48px; }
+      .grid-section { padding: 48px 48px 64px; }
+      .grid         { grid-template-columns: repeat(2, 1fr); }
+      .map-section  { padding: 72px 48px; }
+      .map-title    { font-size: 40px; }
+      .table-section { padding: 72px 48px; }
+      .section-title { font-size: 40px; }
+      footer        { padding: 48px 48px; }
+    }
+
+    @media (max-width: 768px) {
+      nav           { padding: 0 24px; }
+      .nav-links    { display: none; }
+      .hero         { padding: 48px 24px 40px; }
+      .hero-title   { font-size: 44px; }
+      .hero-sub     { font-size: 16px; }
+      .filter-bar   { padding: 0 24px; }
+      .grid-section { padding: 32px 24px 48px; }
+      .grid         { grid-template-columns: 1fr; }
+      .map-section  { padding: 56px 24px; }
+      .map-title    { font-size: 32px; }
+      .map-canvas   { height: 340px; }
+      .table-section { padding: 56px 24px; }
+      .section-title { font-size: 32px; }
+      footer        { padding: 40px 24px; }
+      .footer-inner { flex-direction: column; align-items: flex-start; gap: 24px; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ─── NAV ──────────────────────────────────────────── -->
+  <nav>
+    <a class="nav-logo" href="#">
+      <div class="nav-mark">
+        <svg width="14" height="12" viewBox="0 0 14 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <rect x="0"  y="0" width="2.2" height="12" fill="white"/>
+          <rect x="3"  y="4" width="2.2" height="8"  fill="white"/>
+          <rect x="6"  y="0" width="2.2" height="12" fill="white"/>
+          <rect x="9"  y="4" width="2.2" height="8"  fill="white"/>
+          <rect x="11.8" y="0" width="2.2" height="12" fill="white"/>
+        </svg>
+      </div>
+      <span class="nav-wordmark">Weave</span>
+    </a>
+    <ul class="nav-links">
+      <li><a href="#">Overview</a></li>
+      <li><a href="#">Features</a></li>
+      <li><a href="#">Pricing</a></li>
+      <li><a href="#">Community</a></li>
+    </ul>
+    <a class="btn-pill" href="#">Try Weave</a>
+  </nav>
+
+  <!-- ─── HERO ─────────────────────────────────────────── -->
+  <section class="hero">
+    <div class="hero-eyebrow">
+      <span class="badge">Intelligence</span>
+      <span class="badge outline">Updated May 2026</span>
+    </div>
+    <h1 class="hero-title">Competitor<br>landscape</h1>
+    <p class="hero-sub">An overview of the AI creative tools market — image generation, video synthesis, and node-based workflow platforms.</p>
+    <div class="hero-stats">
+      <div class="hero-stat">
+        <span class="stat-value">9</span>
+        <span class="stat-label">platforms</span>
+      </div>
+      <div class="stat-sep"></div>
+      <div class="hero-stat">
+        <span class="stat-value">4</span>
+        <span class="stat-label">categories</span>
+      </div>
+      <div class="stat-sep"></div>
+      <div class="hero-stat">
+        <span class="stat-value">12</span>
+        <span class="stat-label">capabilities tracked</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- ─── FILTER BAR ────────────────────────────────────── -->
+  <div class="filter-bar">
+    <div class="filter-inner">
+      <button class="filter-btn active" data-filter="all">All</button>
+      <button class="filter-btn" data-filter="image-gen">Image generation</button>
+      <button class="filter-btn" data-filter="video-gen">Video generation</button>
+      <button class="filter-btn" data-filter="node-based">Node-based</button>
+      <button class="filter-btn" data-filter="design-ai">Design + AI</button>
+    </div>
+  </div>
+
+  <!-- ─── COMPETITOR CARDS ──────────────────────────────── -->
+  <section class="grid-section">
+    <div class="grid" id="grid">
+
+      <!-- Midjourney -->
+      <article class="card" data-cat="image-gen">
+        <div class="card-top">
+          <div class="card-icon">🎨</div>
+          <div class="card-badges">
+            <span class="badge">Image gen</span>
+            <span class="badge outline">$10–$120</span>
+          </div>
+        </div>
+        <div>
+          <div class="card-name">Midjourney</div>
+          <div class="card-desc">Discord-native AI image generator. The aesthetic benchmark for creative output quality.</div>
+        </div>
+        <div class="divider"></div>
+        <div>
+          <div class="list-label">Strengths</div>
+          <div class="item-list">
+            <div class="item"><span class="item-dot up">↑</span>Exceptional aesthetic quality, consistently beautiful outputs</div>
+            <div class="item"><span class="item-dot up">↑</span>Massive community and culture of prompt sharing</div>
+            <div class="item"><span class="item-dot up">↑</span>Diverse artistic styles with strong visual coherence</div>
+          </div>
+        </div>
+        <div>
+          <div class="list-label">Weaknesses</div>
+          <div class="item-list">
+            <div class="item"><span class="item-dot down">↓</span>No API access — Discord-only, limits workflow integration</div>
+            <div class="item"><span class="item-dot down">↓</span>Limited precision control over composition and specifics</div>
+          </div>
+        </div>
+        <div class="card-footer">
+          <span class="pricing">$10 / mo starter</span>
+          <span class="audience">Creatives</span>
+        </div>
+      </article>
+
+      <!-- Adobe Firefly -->
+      <article class="card" data-cat="image-gen">
+        <div class="card-top">
+          <div class="card-icon">🔥</div>
+          <div class="card-badges">
+            <span class="badge">Image gen</span>
+            <span class="badge outline">CC Bundle</span>
+          </div>
+        </div>
+        <div>
+          <div class="card-name">Adobe Firefly</div>
+          <div class="card-desc">Adobe's AI suite embedded in Creative Cloud, built for commercially safe generation.</div>
+        </div>
+        <div class="divider"></div>
+        <div>
+          <div class="list-label">Strengths</div>
+          <div class="item-list">
+            <div class="item"><span class="item-dot up">↑</span>Commercially licensed — safe for brand and enterprise use</div>
+            <div class="item"><span class="item-dot up">↑</span>Native integration across Photoshop, Illustrator, Express</div>
+            <div class="item"><span class="item-dot up">↑</span>Strong generative fill and asset consistency tools</div>
+          </div>
+        </div>
+        <div>
+          <div class="list-label">Weaknesses</div>
+          <div class="item-list">
+            <div class="item"><span class="item-dot down">↓</span>Output quality below Midjourney for creative work</div>
+            <div class="item"><span class="item-dot down">↓</span>Requires CC subscription — high floor cost for AI access</div>
+          </div>
+        </div>
+        <div class="card-footer">
+          <span class="pricing">Included in CC $55+</span>
+          <span class="audience">Enterprise</span>
+        </div>
+      </article>
+
+      <!-- DALL-E 3 -->
+      <article class="card" data-cat="image-gen">
+        <div class="card-top">
+          <div class="card-icon" style="font-size:13px; font-family:var(--font-mono); font-weight:500;">OAI</div>
+          <div class="card-badges">
+            <span class="badge">Image gen</span>
+            <span class="badge outline">API</span>
+          </div>
+        </div>
+        <div>
+          <div class="card-name">DALL-E 3</div>
+          <div class="card-desc">OpenAI's image model via ChatGPT and API. Best-in-class text rendering, natural language.</div>
+        </div>
+        <div class="divider"></div>
+        <div>
+          <div class="list-label">Strengths</div>
+          <div class="item-list">
+            <div class="item"><span class="item-dot up">↑</span>Industry-leading text legibility within generated images</div>
+            <div class="item"><span class="item-dot up">↑</span>Natural language prompting — no special syntax needed</div>
+            <div class="item"><span class="item-dot up">↑</span>Robust API with per-use pricing and developer tooling</div>
+          </div>
+        </div>
+        <div>
+          <div class="list-label">Weaknesses</div>
+          <div class="item-list">
+            <div class="item"><span class="item-dot down">↓</span>Inconsistent style across regenerations, lacks aesthetic identity</div>
+            <div class="item"><span class="item-dot down">↓</span>Strict safety filters significantly reduce creative range</div>
+          </div>
+        </div>
+        <div class="card-footer">
+          <span class="pricing">$20 / mo ChatGPT Plus</span>
+          <span class="audience">Developers</span>
+        </div>
+      </article>
+
+      <!-- Ideogram -->
+      <article class="card" data-cat="image-gen">
+        <div class="card-top">
+          <div class="card-icon" style="font-size:14px;">Ⅱ</div>
+          <div class="card-badges">
+            <span class="badge">Image gen</span>
+            <span class="badge outline">Free tier</span>
+          </div>
+        </div>
+        <div>
+          <div class="card-name">Ideogram</div>
+          <div class="card-desc">AI image generator specialising in typographic accuracy and poster design.</div>
+        </div>
+        <div class="divider"></div>
+        <div>
+          <div class="list-label">Strengths</div>
+          <div class="item-list">
+            <div class="item"><span class="item-dot up">↑</span>Best-in-class text-in-image — readable, styled typography</div>
+            <div class="item"><span class="item-dot up">↑</span>Excellent for posters, social cards, branded visuals</div>
+            <div class="item"><span class="item-dot up">↑</span>Fast iteration loop with accessible free tier</div>
+          </div>
+        </div>
+        <div>
+          <div class="list-label">Weaknesses</div>
+          <div class="item-list">
+            <div class="item"><span class="item-dot down">↓</span>Narrower stylistic range vs. Midjourney</div>
+            <div class="item"><span class="item-dot down">↓</span>Less suited for editorial or complex photorealistic work</div>
+          </div>
+        </div>
+        <div class="card-footer">
+          <span class="pricing">Free – $20 / mo</span>
+          <span class="audience">Marketers</span>
+        </div>
+      </article>
+
+      <!-- Leonardo AI -->
+      <article class="card" data-cat="image-gen">
+        <div class="card-top">
+          <div class="card-icon">✦</div>
+          <div class="card-badges">
+            <span class="badge">Image gen</span>
+            <span class="badge outline">$12–$48</span>
+          </div>
+        </div>
+        <div>
+          <div class="card-name">Leonardo AI</div>
+          <div class="card-desc">Platform for consistent character and game asset generation with fine-tuned models.</div>
+        </div>
+        <div class="divider"></div>
+        <div>
+          <div class="list-label">Strengths</div>
+          <div class="item-list">
+            <div class="item"><span class="item-dot up">↑</span>Custom model fine-tuning for consistent brand characters</div>
+            <div class="item"><span class="item-dot up">↑</span>Strong for game assets, concept art, production pipelines</div>
+            <div class="item"><span class="item-dot up">↑</span>Canvas editing and image-to-image workflows built in</div>
+          </div>
+        </div>
+        <div>
+          <div class="list-label">Weaknesses</div>
+          <div class="item-list">
+            <div class="item"><span class="item-dot down">↓</span>Cluttered interface; steep learning curve for newcomers</div>
+            <div class="item"><span class="item-dot down">↓</span>Output quality varies significantly across model choices</div>
+          </div>
+        </div>
+        <div class="card-footer">
+          <span class="pricing">$12 / mo apprentice</span>
+          <span class="audience">Game dev</span>
+        </div>
+      </article>
+
+      <!-- Runway -->
+      <article class="card" data-cat="video-gen">
+        <div class="card-top">
+          <div class="card-icon">▶</div>
+          <div class="card-badges">
+            <span class="badge">Video gen</span>
+            <span class="badge outline">$12–$76</span>
+          </div>
+        </div>
+        <div>
+          <div class="card-name">Runway</div>
+          <div class="card-desc">Professional AI video generation and editing platform used in film and production studios.</div>
+        </div>
+        <div class="divider"></div>
+        <div>
+          <div class="list-label">Strengths</div>
+          <div class="item-list">
+            <div class="item"><span class="item-dot up">↑</span>Industry-leading video quality — used by major studios</div>
+            <div class="item"><span class="item-dot up">↑</span>Motion brush, inpainting, and background removal tools</div>
+            <div class="item"><span class="item-dot up">↑</span>Strong text-to-video and image-to-video pipelines</div>
+          </div>
+        </div>
+        <div>
+          <div class="list-label">Weaknesses</div>
+          <div class="item-list">
+            <div class="item"><span class="item-dot down">↓</span>Expensive at production scale — limited credits at entry tier</div>
+            <div class="item"><span class="item-dot down">↓</span>Generation time slow (30–90s per clip)</div>
+          </div>
+        </div>
+        <div class="card-footer">
+          <span class="pricing">$12 / mo standard</span>
+          <span class="audience">Filmmakers</span>
+        </div>
+      </article>
+
+      <!-- Kling AI -->
+      <article class="card" data-cat="video-gen">
+        <div class="card-top">
+          <div class="card-icon">◈</div>
+          <div class="card-badges">
+            <span class="badge">Video gen</span>
+            <span class="badge outline">Free tier</span>
+          </div>
+        </div>
+        <div>
+          <div class="card-name">Kling AI</div>
+          <div class="card-desc">Kuaishou's video generation model with exceptional physics simulation and motion realism.</div>
+        </div>
+        <div class="divider"></div>
+        <div>
+          <div class="list-label">Strengths</div>
+          <div class="item-list">
+            <div class="item"><span class="item-dot up">↑</span>Highly realistic physics simulation and natural motion quality</div>
+            <div class="item"><span class="item-dot up">↑</span>High-quality output at competitive pricing vs. Runway</div>
+            <div class="item"><span class="item-dot up">↑</span>Generous free tier for exploration and prototyping</div>
+          </div>
+        </div>
+        <div>
+          <div class="list-label">Weaknesses</div>
+          <div class="item-list">
+            <div class="item"><span class="item-dot down">↓</span>Limited API access; primarily consumer-facing interface</div>
+            <div class="item"><span class="item-dot down">↓</span>Content restrictions tied to Chinese regulatory requirements</div>
+          </div>
+        </div>
+        <div class="card-footer">
+          <span class="pricing">Free – $10 / mo</span>
+          <span class="audience">Content creators</span>
+        </div>
+      </article>
+
+      <!-- ComfyUI -->
+      <article class="card" data-cat="node-based">
+        <div class="card-top">
+          <div class="card-icon" style="font-size:12px; font-family:var(--font-mono);">⬡⬡</div>
+          <div class="card-badges">
+            <span class="badge">Node-based</span>
+            <span class="badge outline">Open source</span>
+          </div>
+        </div>
+        <div>
+          <div class="card-name">ComfyUI</div>
+          <div class="card-desc">Open-source node-based Stable Diffusion interface for maximum workflow flexibility.</div>
+        </div>
+        <div class="divider"></div>
+        <div>
+          <div class="list-label">Strengths</div>
+          <div class="item-list">
+            <div class="item"><span class="item-dot up">↑</span>Maximum flexibility — compose any workflow with any model</div>
+            <div class="item"><span class="item-dot up">↑</span>Free and open source; large community extension ecosystem</div>
+            <div class="item"><span class="item-dot up">↑</span>Local processing — no cloud dependency, full data control</div>
+          </div>
+        </div>
+        <div>
+          <div class="list-label">Weaknesses</div>
+          <div class="item-list">
+            <div class="item"><span class="item-dot down">↓</span>Complex setup requires technical knowledge and a local GPU</div>
+            <div class="item"><span class="item-dot down">↓</span>No cloud offering, no collaboration, no team features</div>
+          </div>
+        </div>
+        <div class="card-footer">
+          <span class="pricing">Free (self-hosted)</span>
+          <span class="audience">Power users</span>
+        </div>
+      </article>
+
+      <!-- Canva AI -->
+      <article class="card" data-cat="design-ai">
+        <div class="card-top">
+          <div class="card-icon">◑</div>
+          <div class="card-badges">
+            <span class="badge">Design + AI</span>
+            <span class="badge outline">Free–$15</span>
+          </div>
+        </div>
+        <div>
+          <div class="card-name">Canva AI</div>
+          <div class="card-desc">Consumer design platform with AI generation, templates, and multi-format export built in.</div>
+        </div>
+        <div class="divider"></div>
+        <div>
+          <div class="list-label">Strengths</div>
+          <div class="item-list">
+            <div class="item"><span class="item-dot up">↑</span>Extremely low barrier — no design skills required</div>
+            <div class="item"><span class="item-dot up">↑</span>Extensive template library across all content formats</div>
+            <div class="item"><span class="item-dot up">↑</span>AI generation and design composition in a single tool</div>
+          </div>
+        </div>
+        <div>
+          <div class="list-label">Weaknesses</div>
+          <div class="item-list">
+            <div class="item"><span class="item-dot down">↓</span>Output quality insufficient for professional creative work</div>
+            <div class="item"><span class="item-dot down">↓</span>No node-based control, no custom workflow, no API</div>
+          </div>
+        </div>
+        <div class="card-footer">
+          <span class="pricing">Free – $15 / mo</span>
+          <span class="audience">SMB · non-designers</span>
+        </div>
+      </article>
+
+    </div>
+  </section>
+
+  <!-- ─── POSITIONING MAP ────────────────────────────────── -->
+  <section class="map-section">
+    <div class="map-inner">
+      <p class="map-eyebrow">Positioning</p>
+      <h2 class="map-title">Where <em>Weave</em><br>sits in the market</h2>
+      <div class="map-canvas" id="map">
+        <div class="map-axis h"></div>
+        <div class="map-axis v"></div>
+        <span class="axis-label left">Consumer</span>
+        <span class="axis-label right">Professional</span>
+        <span class="axis-label top">Generative</span>
+        <span class="axis-label bottom">Compositional</span>
+
+        <!-- Dots: positioned as % of canvas (left%, top%) -->
+        <!-- Figma Weave: top-right (professional + generative) -->
+        <div class="map-dot" style="left:78%;top:22%">
+          <div class="dot-circle weave"></div>
+          <span class="dot-label weave">Figma Weave</span>
+        </div>
+        <!-- Midjourney: top-center (generative, semi-pro) -->
+        <div class="map-dot" style="left:60%;top:15%">
+          <div class="dot-circle"></div>
+          <span class="dot-label">Midjourney</span>
+        </div>
+        <!-- Adobe Firefly: right-center (professional, mixed) -->
+        <div class="map-dot" style="left:82%;top:42%">
+          <div class="dot-circle"></div>
+          <span class="dot-label">Adobe Firefly</span>
+        </div>
+        <!-- DALL-E: top-left-center -->
+        <div class="map-dot" style="left:48%;top:25%">
+          <div class="dot-circle"></div>
+          <span class="dot-label">DALL-E 3</span>
+        </div>
+        <!-- Runway: top-right -->
+        <div class="map-dot" style="left:72%;top:30%">
+          <div class="dot-circle"></div>
+          <span class="dot-label">Runway</span>
+        </div>
+        <!-- ComfyUI: bottom-right (compositional, professional) -->
+        <div class="map-dot" style="left:75%;top:72%">
+          <div class="dot-circle"></div>
+          <span class="dot-label">ComfyUI</span>
+        </div>
+        <!-- Kling: top-center-left -->
+        <div class="map-dot" style="left:38%;top:20%">
+          <div class="dot-circle"></div>
+          <span class="dot-label">Kling AI</span>
+        </div>
+        <!-- Leonardo: right-center -->
+        <div class="map-dot" style="left:68%;top:48%">
+          <div class="dot-circle"></div>
+          <span class="dot-label">Leonardo AI</span>
+        </div>
+        <!-- Canva: left-center (consumer, compositional/generative mix) -->
+        <div class="map-dot" style="left:22%;top:38%">
+          <div class="dot-circle"></div>
+          <span class="dot-label">Canva AI</span>
+        </div>
+        <!-- Ideogram: top-left -->
+        <div class="map-dot" style="left:28%;top:25%">
+          <div class="dot-circle"></div>
+          <span class="dot-label">Ideogram</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ─── COMPARISON TABLE ──────────────────────────────── -->
+  <section class="table-section">
+    <div class="table-inner">
+      <p class="section-eyebrow">Capability matrix</p>
+      <h2 class="section-title">Feature by feature</h2>
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>Capability</th>
+              <th class="hl">Figma Weave</th>
+              <th>Midjourney</th>
+              <th>Adobe Firefly</th>
+              <th>Runway</th>
+              <th>ComfyUI</th>
+              <th>Canva AI</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td class="feat">Node-based workflow</td>
+              <td class="hl"><span class="yes">✓</span></td>
+              <td><span class="no">✕</span></td>
+              <td><span class="no">✕</span></td>
+              <td><span class="no">✕</span></td>
+              <td><span class="yes">✓</span></td>
+              <td><span class="no">✕</span></td>
+            </tr>
+            <tr>
+              <td class="feat">Multi-model support</td>
+              <td class="hl"><span class="yes">✓</span></td>
+              <td><span class="no">✕</span></td>
+              <td><span class="no">✕</span></td>
+              <td><span class="part">PARTIAL</span></td>
+              <td><span class="yes">✓</span></td>
+              <td><span class="no">✕</span></td>
+            </tr>
+            <tr>
+              <td class="feat">Video generation</td>
+              <td class="hl"><span class="yes">✓</span></td>
+              <td><span class="no">✕</span></td>
+              <td><span class="part">PARTIAL</span></td>
+              <td><span class="yes">✓</span></td>
+              <td><span class="part">PARTIAL</span></td>
+              <td><span class="no">✕</span></td>
+            </tr>
+            <tr>
+              <td class="feat">Cloud collaboration</td>
+              <td class="hl"><span class="yes">✓</span></td>
+              <td><span class="no">✕</span></td>
+              <td><span class="yes">✓</span></td>
+              <td><span class="part">PARTIAL</span></td>
+              <td><span class="no">✕</span></td>
+              <td><span class="yes">✓</span></td>
+            </tr>
+            <tr>
+              <td class="feat">API access</td>
+              <td class="hl"><span class="yes">✓</span></td>
+              <td><span class="no">✕</span></td>
+              <td><span class="yes">✓</span></td>
+              <td><span class="yes">✓</span></td>
+              <td><span class="part">PARTIAL</span></td>
+              <td><span class="no">✕</span></td>
+            </tr>
+            <tr>
+              <td class="feat">Design tool integration</td>
+              <td class="hl"><span class="yes">✓</span></td>
+              <td><span class="no">✕</span></td>
+              <td><span class="yes">✓</span></td>
+              <td><span class="no">✕</span></td>
+              <td><span class="no">✕</span></td>
+              <td><span class="yes">✓</span></td>
+            </tr>
+            <tr>
+              <td class="feat">Commercial licensing</td>
+              <td class="hl"><span class="yes">✓</span></td>
+              <td><span class="part">PARTIAL</span></td>
+              <td><span class="yes">✓</span></td>
+              <td><span class="yes">✓</span></td>
+              <td><span class="part">PARTIAL</span></td>
+              <td><span class="yes">✓</span></td>
+            </tr>
+            <tr>
+              <td class="feat">Free tier</td>
+              <td class="hl"><span class="yes">✓</span></td>
+              <td><span class="no">✕</span></td>
+              <td><span class="part">PARTIAL</span></td>
+              <td><span class="part">PARTIAL</span></td>
+              <td><span class="yes">✓</span></td>
+              <td><span class="yes">✓</span></td>
+            </tr>
+            <tr>
+              <td class="feat">Iterators / loops</td>
+              <td class="hl"><span class="yes">✓</span></td>
+              <td><span class="no">✕</span></td>
+              <td><span class="no">✕</span></td>
+              <td><span class="no">✕</span></td>
+              <td><span class="yes">✓</span></td>
+              <td><span class="no">✕</span></td>
+            </tr>
+            <tr>
+              <td class="feat">Figma integration</td>
+              <td class="hl"><span class="yes">✓</span></td>
+              <td><span class="no">✕</span></td>
+              <td><span class="no">✕</span></td>
+              <td><span class="no">✕</span></td>
+              <td><span class="no">✕</span></td>
+              <td><span class="no">✕</span></td>
+            </tr>
+            <tr>
+              <td class="feat">Real-time preview</td>
+              <td class="hl"><span class="yes">✓</span></td>
+              <td><span class="no">✕</span></td>
+              <td><span class="yes">✓</span></td>
+              <td><span class="no">✕</span></td>
+              <td><span class="part">PARTIAL</span></td>
+              <td><span class="yes">✓</span></td>
+            </tr>
+            <tr>
+              <td class="feat">Desktop app</td>
+              <td class="hl"><span class="yes">✓</span></td>
+              <td><span class="no">✕</span></td>
+              <td><span class="yes">✓</span></td>
+              <td><span class="no">✕</span></td>
+              <td><span class="yes">✓</span></td>
+              <td><span class="part">PARTIAL</span></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </section>
+
+  <!-- ─── FOOTER ─────────────────────────────────────────── -->
+  <footer>
+    <div class="footer-inner">
+      <div class="footer-left">
+        <div class="footer-brand">
+          <div class="footer-mark">
+            <svg width="14" height="12" viewBox="0 0 14 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <rect x="0"    y="0" width="2.2" height="12" fill="#0A0A0A"/>
+              <rect x="3"    y="4" width="2.2" height="8"  fill="#0A0A0A"/>
+              <rect x="5.9"  y="0" width="2.2" height="12" fill="#0A0A0A"/>
+              <rect x="8.8"  y="4" width="2.2" height="8"  fill="#0A0A0A"/>
+              <rect x="11.8" y="0" width="2.2" height="12" fill="#0A0A0A"/>
+            </svg>
+          </div>
+          <span class="footer-wordmark">Weave</span>
+        </div>
+        <span class="footer-tagline">Artistic Intelligence</span>
+      </div>
+      <div class="footer-eq">
+        <em>AI</em> + human creativity = <em>Figma Weave</em>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    const btns = document.querySelectorAll('.filter-btn');
+    const cards = document.querySelectorAll('.card');
+
+    btns.forEach(btn => {
+      btn.addEventListener('click', () => {
+        btns.forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+        const f = btn.dataset.filter;
+        cards.forEach(c => {
+          const show = f === 'all' || c.dataset.cat === f;
+          c.classList.toggle('hidden', !show);
+        });
+      });
+    });
+  </script>
+
+</body>
+</html>
